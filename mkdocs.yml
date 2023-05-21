@@ -2,14 +2,23 @@ site_name: Документация по домашнему проекту
 site_url: https://docs.aliaksandr-kulba.com/
 site_description: Документация по домашней странице Александра Кульбы
 site_author: Aliaksandr Kulba
-repo_url: https://github.com/tunet/tunet.github.io
-edit_uri: ""
+repo_url: https://github.com/tunet/my-homepage-docs
+edit_uri: "edit/main/docs/"
 
 theme:
   name: material
+  features:
+    - content.action.edit
+    - content.action.view
+    - content.code.copy
 
 plugins:
   - search
+  - git-revision-date
+
+markdown_extensions:
+  - toc:
+      permalink: true
 
 nav:
   - Introduction: "index.md"

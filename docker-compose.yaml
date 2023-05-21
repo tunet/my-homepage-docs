@@ -4,8 +4,13 @@ services:
   mkdocs:
     build:
       dockerfile: .docker/Dockerfile
+      target: base
       context: .
+      args:
+        - NGINX_VERSION=${NGINX_VERSION}
+        - MKDOCS_MATERIAL_VERSION=${MKDOCS_MATERIAL_VERSION}
     volumes:
+      - ./.git/:/docs/.git
       - ./docs/:/docs/docs
       - ./mkdocs.yml:/docs/mkdocs.yml
     ports:

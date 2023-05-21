@@ -5,10 +5,13 @@ ARG MKDOCS_MATERIAL_VERSION
 
 FROM squidfunk/mkdocs-material:${MKDOCS_MATERIAL_VERSION} as base
 
+RUN pip install mkdocs-git-revision-date-plugin
+
 
 
 FROM base as build
 
+COPY ./.git /docs/.git
 COPY ./docs /docs/docs
 COPY ./mkdocs.yml /docs/mkdocs.yml
 
