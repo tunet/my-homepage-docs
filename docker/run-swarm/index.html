@@ -12,7 +12,7 @@
         <meta name="author" content="Aliaksandr Kulba">
       
       
-        <link rel="canonical" href="https://tunet.github.io/docker/run-swarm-cluster/">
+        <link rel="canonical" href="https://tunet.github.io/docker/run-swarm/">
       
       
         <link rel="prev" href="../..">
@@ -23,7 +23,7 @@
     
     
       
-        <title>Развернуть docker swarm кластер - Документация по домашнему проекту</title>
+        <title>Развернуть docker swarm - Документация по домашнему проекту</title>
       
     
     
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Развернуть docker swarm кластер
+              Развернуть docker swarm
             
           </span>
         </div>
@@ -263,9 +263,75 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Развернуть docker swarm
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
-        Развернуть docker swarm кластер
+        Развернуть docker swarm
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    Обновить ПО на сервере
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    Установить docker на сервере
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssh" class="md-nav__link">
+    Донастроить SSH на сервере
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-swarm_1" class="md-nav__link">
+    Запустить docker в режиме swarm
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-webproxy-traefik" class="md-nav__link">
+    Создать docker-сеть webproxy для traefik
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#label-swarm" class="md-nav__link">
+    Добавить label для текущего узла swarm
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -298,6 +364,56 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    Обновить ПО на сервере
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    Установить docker на сервере
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssh" class="md-nav__link">
+    Донастроить SSH на сервере
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-swarm_1" class="md-nav__link">
+    Запустить docker в режиме swarm
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-webproxy-traefik" class="md-nav__link">
+    Создать docker-сеть webproxy для traefik
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#label-swarm" class="md-nav__link">
+    Добавить label для текущего узла swarm
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -311,7 +427,37 @@
                   
 
 
-<h1 id="docker-swarm">Развернуть docker swarm кластер</h1>
+<h1 id="docker-swarm">Развернуть docker swarm</h1>
+<h3 id="_1">Обновить ПО на сервере</h3>
+<pre><code class="language-shell">apt update
+</code></pre>
+<pre><code class="language-shell">apt upgrade
+</code></pre>
+<pre><code class="language-shell">reboot
+</code></pre>
+<h3 id="docker">Установить docker на сервере</h3>
+<p><a href="https://docs.docker.com/engine/install/ubuntu/">Install Docker Engine on Ubuntu</a></p>
+<h3 id="ssh">Донастроить SSH на сервере</h3>
+<pre><code class="language-shell">sed  -i '1i PubkeyAcceptedKeyTypes=+ssh-rsa' /etc/ssh/sshd_config
+</code></pre>
+<pre><code class="language-shell">service ssh restart
+</code></pre>
+<p>(нужно было для подключения некоторых клиентов БД по SSH-тунелю)</p>
+<p>Найдите в файле <code>/etc/ssh/sshd_config</code> настройку <code>GatewayPorts</code>.
+При необходимости раскомментируйте и замените значение на <code>yes</code>.</p>
+<pre><code class="language-shell">service ssh restart
+</code></pre>
+<p>(нужно было для работы docker + xdebug + vscode)</p>
+<h3 id="docker-swarm_1">Запустить docker в режиме swarm</h3>
+<pre><code class="language-shell">docker swarm init --advertise-addr __IP_ADDRESS_ТЕКУЩЕГО_СЕРВЕРА__
+</code></pre>
+<h3 id="docker-webproxy-traefik">Создать docker-сеть <code>webproxy</code> для traefik</h3>
+<pre><code class="language-shell">docker network create --driver=overlay webproxy
+</code></pre>
+<h3 id="label-swarm">Добавить <code>label</code> для текущего узла <code>swarm</code></h3>
+<pre><code class="language-shell">docker node update --label-add webproxy.traefik-public-certificates=true $(docker info -f '{{.Swarm.NodeID}}')
+</code></pre>
+<p>(нужно будет позже, чтобы по этому <code>label</code> деплоить <code>traefik</code> только на эту ноду)</p>
 
 
 
