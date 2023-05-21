@@ -2,8 +2,11 @@ version: '3.9'
 
 services:
   mkdocs:
-    image: squidfunk/mkdocs-material
+    build:
+      dockerfile: .docker/Dockerfile
+      context: .
     volumes:
-      - ./:/docs
+      - ./docs/:/docs/docs
+      - ./mkdocs.yml:/docs/mkdocs.yml
     ports:
       - '18005:8000'

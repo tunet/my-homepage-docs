@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  docs:
+    image: registry.digitalocean.com/my-homepage-registry/frontend:docs-latest
+    networks:
+      - webproxy
+    labels:
+        - traefik.enable=true
+        - traefik.http.routers.docs.rule=Host(`docs.aliaksandr-kulba.com`)
+        - traefik.http.routers.docs.entrypoints=web
+        - traefik.http.routers.docs.entrypoints=websecure
+        - traefik.http.routers.docs.tls.certresolver=myresolver
+        - traefik.http.routers.docs_http.rule=Host(`docs.aliaksandr-kulba.com`)
+        - traefik.http.routers.docs_http.entrypoints=web
+        - traefik.http.routers.docs_http.middlewares=redirect-to-https
+        - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+networks:
+  webproxy:
+    external: true
