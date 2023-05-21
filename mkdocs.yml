@@ -1,0 +1,17 @@
+site_name: Документация по домашнему проекту
+site_url: https://tunet.github.io/
+site_description: Документация по домашней странице Александра Кульбы
+site_author: Aliaksandr Kulba
+repo_url: https://github.com/tunet/tunet.github.io
+edit_uri: ""
+
+theme:
+  name: material
+
+plugins:
+  - search
+
+nav:
+  - Introduction: "index.md"
+  - Docker:
+    - Развернуть docker swarm: "docker/run-swarm.md"
