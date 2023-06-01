@@ -19,9 +19,14 @@ plugins:
 markdown_extensions:
   - toc:
       permalink: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
 
 nav:
   - Introduction: "index.md"
   - Docker:
     - Развернуть docker swarm: "docker/run-swarm.md"
     - Настроить локальное окружение: "docker/configure-local-environment.md"
+  - Deploy:
+    - Deploy traefik: "deploy/deploy-traefik.md"

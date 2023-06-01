@@ -52,21 +52,3 @@ service ssh restart
 ```shell
 docker swarm init --advertise-addr __IP_ADDRESS_ТЕКУЩЕГО_СЕРВЕРА__
 ```
-
-
-
-### Создать docker-сеть `webproxy` для traefik
-
-```shell
-docker network create --driver=overlay webproxy
-```
-
-
-
-### Добавить `label` для текущего узла `swarm`
-
-```shell
-docker node update --label-add webproxy.traefik-public-certificates=true $(docker info -f '{{.Swarm.NodeID}}')
-```
-
-(нужно будет позже, чтобы по этому `label` деплоить `traefik` только на эту ноду)
