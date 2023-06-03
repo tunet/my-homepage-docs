@@ -69,3 +69,4 @@ sudo apt install php8.2 php8.2-xml php8.2-xdebug
 - [PHP Sniffer & Beautifier](https://marketplace.visualstudio.com/items?itemName=ValeryanM.vscode-phpsab) (WSL2)
 - [Makefile Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.makefile-tools) (WSL2)
 - [phpstan](https://marketplace.visualstudio.com/items?itemName=SanderRonde.phpstan-vscode) (WSL2)
+- [MySQL](https://marketplace.visualstudio.com/items?itemName=cweijan.vscode-mysql-client2) (WSL2)
