@@ -35,7 +35,7 @@ traefik.aliaksandr-kulba.com.   A   __IP_АДРЕС_СЕРВЕРА__
 
 === "docker-deploy-stack.yaml"
 
-    ``` sh
+    ```yaml
     version: '3.9'
 
     services:
