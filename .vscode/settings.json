@@ -1,0 +1,29 @@
+{
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "terminal.integrated.profiles.linux": {
+        "bash": {
+            "path": "bash",
+            "icon": "terminal-bash",
+            "args": ["-l"]
+        }
+    },
+    "workbench.tree.indent": 20,
+    "editor.rulers": [
+        {
+            "column": 120,
+            "color": "#ffc3b5"
+        }
+    ],
+    "editor.minimap.enabled": false,
+    "editor.codeLens": false,
+    "phpsab.standard": "./phpcs.xml",
+    "phpsab.snifferMode": "onType",
+    "phpstan.configFile": "./phpstan.neon",
+    // "phpstan.options": [
+    //     "--xdebug"
+    // ],
+    "[php]": {
+        "editor.defaultFormatter": "valeryanm.vscode-phpsab",
+        "editor.formatOnSave": true
+    }
+}
