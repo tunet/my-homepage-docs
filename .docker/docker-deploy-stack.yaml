@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   docs:
-    image: registry.digitalocean.com/my-homepage-registry/frontend:docs-latest
+    image: tunet/docs:latest
     networks:
       - webproxy
     labels:
